@@ -943,6 +943,7 @@ class paradox:
                     if tries == 0:
                         logging.error('Failure, disconnecting')
                         sys.exit(0)
+                    return ''
                 else:
                     return inc_data
 
@@ -1560,7 +1561,7 @@ if __name__ == '__main__':
 
             logging.info("State04:Polling Disabled")
 
-        elif Polling_Enabled == 1 and State_Machine <= 4:
+        elif Polling_Enabled == 1 and State_Machine > 4:
             logging.info("Polling enabled false, setting statement 2")
             State_Machine = 2
 
