@@ -943,6 +943,7 @@ class paradox:
                     if tries == 0:
                         logging.error('Failure, disconnecting')
                         sys.exit(0)
+                    return ''
                 else:
                     return inc_data
 
