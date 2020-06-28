@@ -756,18 +756,18 @@ class paradox:
                                     #zone state on
                                     logging.info("Publishing ZONE event \"%s\" for \"%s\" =  %s" % (Topic_Publish_ZoneState, location, ZonesOn))
                                     self.client.publish(Topic_Publish_ZoneState + "/" + location,ZonesOn, qos=1, retain=True)
-                                elif ord(message[7]) == 2 and (ord(message[8]) == 11 or ord(message[8]) == 3):   #Disarm
+                                elif ord(message[7]) == 2 and (ord(message[8]) == 11):   #Disarm
                                     #partition disarmed event
                                     logging.info("Publishing DISARMED event \"%s\" =  \"%s\"" % (Topic_Publish_ArmState, self.Alarm_Partition_States['DISARMED']))
                                     self.client.publish(Topic_Publish_ArmState ,ZonesOff, qos=1, retain=True)
                                     self.client.publish(Topic_Publish_ArmState + "/" + location+ "/Status" ,self.Alarm_Partition_States['DISARMED'], qos=1, retain=True)
-                                elif ord(message[7]) == 6 and (ord(message[8]) == 4 ):   #SLEEP
+                                elif ord(message[7]) == 6 and (ord(message[8]) == 4 or ord(message[8]) == 20):   #SLEEP
                                     #partition sleep armed event
                                     #12 is sleep arm, 14 is full arm- is STAY 13?
                                     logging.info("Publishing SLEEP event \"%s\" =  \"%s\"" % (Topic_Publish_ArmState, self.Alarm_Partition_States['SLEEP']))
                                     self.client.publish(Topic_Publish_ArmState ,ZonesOn, qos=1, retain=True)
                                     self.client.publish(Topic_Publish_ArmState + "/" + location+ "/Status", self.Alarm_Partition_States['SLEEP'], qos=1, retain=True)
-                                elif ord(message[7]) == 6 and (ord(message[8]) == 3 ):   #STAY
+                                elif ord(message[7]) == 6 and (ord(message[8]) == 3 or ord(message[8]) == 6):   #STAY
                                     #partition stayd armed event
                                     #12 is sleep arm, 14 is full arm- is STAY 13?
                                     logging.info("Publishing STAY event \"%s\" =  \"%s\"" % (Topic_Publish_ArmState, self.Alarm_Partition_States['STAY']))
@@ -779,7 +779,7 @@ class paradox:
                                     logging.info("Publishing ARMED event \"%s\" =  \"%s\"" % (Topic_Publish_ArmState, self.Alarm_Partition_States["ARMED"]))
                                     self.client.publish(Topic_Publish_ArmState ,ZonesOn, qos=1, retain=True)
                                     self.client.publish(Topic_Publish_ArmState + "/" + location+ "/Status", self.Alarm_Partition_States["ARMED"], qos=1, retain=True)
-                                elif ord(message[7]) == 2 and (ord(message[8]) == 9):   #Arming state on Swawk off
+                                elif ord(message[7]) == 2 and (ord(message[8]) == 9 or ord(message[8]) == 14):   #Arming state on Swawk off or Exit delay started
                                     #sqwak off messages - part of the arming sequence.
                                     logging.info("Publishing ARMING event \"%s\" =  \"%s\"" % (Topic_Publish_ArmState, self.Alarm_Partition_States["ARMING"]))
                                     self.client.publish(Topic_Publish_ArmState + "/" + location+ "/Status", self.Alarm_Partition_States["ARMING"], qos=1, retain=True)
@@ -790,7 +790,7 @@ class paradox:
                                        #print "Message 8: %s" % str(ord(message[8]))
                                        logging.info("Publishing PGM event \"%s Button%s\" =  \"%s\"" % (Topic_Publish_Events,str(ord(message[8])), "ON"))
                                        self.client.publish(Topic_Publish_Events + "/PGM" + str(ord(message[8])) ,"ON", qos=1, retain=True)
-                                elif (ord(message[7]) == 36 or ord(message[7]) == 37) and (ord(message[8]) == 11):
+                                elif (ord(message[7]) == 36 or ord(message[7]) == 37):
                                     #zone triggered = 36
                                     #Smoke alarm = 37
                                     #2018-06-14 07:55:49,749 DEBUG Events 7-36 8-11- Reply: Event:Zone in alarm;SubEvent:Mid toilet Reed
