@@ -779,7 +779,7 @@ class paradox:
                                     logging.info("Publishing ARMED event \"%s\" =  \"%s\"" % (Topic_Publish_ArmState, self.Alarm_Partition_States["ARMED"]))
                                     self.client.publish(Topic_Publish_ArmState ,ZonesOn, qos=1, retain=True)
                                     self.client.publish(Topic_Publish_ArmState + "/" + location+ "/Status", self.Alarm_Partition_States["ARMED"], qos=1, retain=True)
-                                elif ord(message[7]) == 2 and (ord(message[8]) == 9 or ord(message[8]) == 14):   #Arming state on Swawk off or Exit delay started
+                                elif ord(message[7]) == 2 and (ord(message[8]) == 14):   #Arming state on Exit delay started
                                     #sqwak off messages - part of the arming sequence.
                                     logging.info("Publishing ARMING event \"%s\" =  \"%s\"" % (Topic_Publish_ArmState, self.Alarm_Partition_States["ARMING"]))
                                     self.client.publish(Topic_Publish_ArmState + "/" + location+ "/Status", self.Alarm_Partition_States["ARMING"], qos=1, retain=True)
